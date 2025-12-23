@@ -1,12 +1,14 @@
 {
   "name": "retro-frontend",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build src/main/resources/static",
-    "start": "next start",
-    "lint": "eslint"
+    "dev": "next dev src/main/js",
+    "build": "next build src/main/js",
+    "start": "next start src/main/js",
+    "lint": "eslint --fix",
+    "java:start": "sh gradlew bootRun",
+    "build:next-image": "docker build -t nextjs-docker ."
   },
   "dependencies": {
     "next": "16.1.0",
@@ -14,12 +16,11 @@
     "react-dom": "19.2.3"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.3.10",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.1.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

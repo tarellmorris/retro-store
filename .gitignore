@@ -40,5 +40,5 @@ out/
 node_modules/
 src/main/js/.next/
 next-env.d.ts
-
-src/main/resources/static/
+**/static/
+package-lock.json
