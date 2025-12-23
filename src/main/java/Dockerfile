@@ -1,11 +1,5 @@
-# Use a slimmed OpenJDK image for better efficiency
-FROM openjdk:17-jdk-slim
-
-# Set the working directory inside the container
+FROM eclipse-temurin:25-jdk-alpine
+ARG JAR_FILE=build/libs/*.jar
 WORKDIR /app
-
-# Copy the application JAR file from your project's target directory into the container
-COPY target/my-spring-boot-app.jar app.jar
-
-# Command to run the application when the container starts
+COPY ${JAR_FILE} app.jar
 CMD ["java", "-jar", "app.jar"]

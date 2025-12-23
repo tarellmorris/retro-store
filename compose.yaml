@@ -8,6 +8,15 @@ services:
     networks:
       - front-tier
       - back-tier
+  backend:
+    build:
+      context: .
+      dockerfile: ./src/main/java/Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - front-tier
+      - back-tier
 networks:
   front-tier: { }
   back-tier: { }
