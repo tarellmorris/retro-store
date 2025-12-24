@@ -9,7 +9,7 @@
 		"clean": "npm run clean:spring && npm run clean:next",
 		"clean:spring": "./gradlew clean",
 		"clean:next": "rm -rf node_modules && rm -rf src/main/js/.next",
-		"compose:rebuild": "docker compose down && npm run clean && npm ci && npm run build && docker compose up --build backend frontend nginx",
+		"compose:rebuild": "docker compose down && npm run clean && npm ci && npm run build:spring && docker compose up --build backend frontend nginx",
 		"lint:format": "npx @biomejs/biome check --write"
 	},
 	"dependencies": {

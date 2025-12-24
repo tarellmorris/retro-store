@@ -1,25 +1,24 @@
 FROM node:20-alpine AS base
-
-FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json* .npmrc* ./
-RUN \
-  if [ -f package-lock.json ]; then npm ci; \
-  else echo "Lockfile not found in dep step." && exit 1; \
-  fi
+
+FROM base AS development
+RUN npm ci
+COPY . .
+CMD ["npx", "next", "dev", "src/main/js"]
 
 
 FROM base AS builder
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+COPY --from=base /app/node_modules ./node_modules
 COPY . .
 RUN \
   if [ -f package-lock.json ]; then npm run build:next; \
   else echo "Lockfile not found in build step." && exit 1; \
   fi
 
-FROM base AS runner
+FROM base AS production
 WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1

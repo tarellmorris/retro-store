@@ -1,0 +1,11 @@
+services:
+  frontend:
+    build:
+      target: production
+    environment:
+      - NODE_ENV=production
+
+  backend:
+    environment:
+      - NODE_ENV=production
+

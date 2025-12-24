@@ -8,6 +8,6 @@ public class RESTController {
 
     @GetMapping("/")
     public String index() {
-        return "Hello World from the backend";
+        return "Hello World!";
     }
 }
