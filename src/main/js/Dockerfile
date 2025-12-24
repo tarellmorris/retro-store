@@ -15,7 +15,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN \
-  if [ -f package-lock.json ]; then npm run build; \
+  if [ -f package-lock.json ]; then npm run build:next; \
   else echo "Lockfile not found in build step." && exit 1; \
   fi
 

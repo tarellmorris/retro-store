@@ -1,12 +1,16 @@
 {
-	"name": "retro-frontend",
+	"name": "retro-store",
 	"version": "0.1.0",
 	"private": false,
 	"scripts": {
-		"build": "./gradlew build && npm ci && next build src/main/js",
-		"clean": "./gradlew clean && rm -rf node_modules",
-		"compose:rebuild": "docker compose down && npm run clean && npm run build && docker compose up",
-		"prep": "npx @biomejs/biome check --write"
+		"build": "npm run build:spring && npm run build:next",
+		"build:spring": "./gradlew build",
+		"build:next": "next build src/main/js",
+		"clean": "npm run clean:spring && npm run clean:next",
+		"clean:spring": "./gradlew clean",
+		"clean:next": "rm -rf node_modules && rm -rf src/main/js/.next",
+		"compose:rebuild": "docker compose down && npm run clean && npm ci && npm run build && docker compose up --build backend frontend nginx",
+		"lint:format": "npx @biomejs/biome check --write"
 	},
 	"dependencies": {
 		"next": "16.1.0",

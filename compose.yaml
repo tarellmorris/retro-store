@@ -25,6 +25,7 @@ services:
     build:
       context: .
       dockerfile: ./src/main/js/Dockerfile
+
     environment:
       - PUBLIC_API_URL=http://localhost:8080
       - INTERNAL_API_URL=http://backend:8080
