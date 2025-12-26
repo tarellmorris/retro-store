@@ -5,10 +5,10 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
-      - /app/src/main/js/.next
     environment:
-      - NODE_ENV=development
+      NODE_ENV: development
+    working_dir: /app/src/main/js
 
   backend:
     environment:
-      - NODE_ENV:development
+      NODE_ENV: development

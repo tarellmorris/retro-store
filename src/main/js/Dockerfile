@@ -1,34 +1,56 @@
-FROM node:20-alpine AS base
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-COPY package.json package-lock.json* .npmrc* ./
+FROM node:20.19.6-alpine3.22 AS base
 
-FROM base AS development
-RUN npm ci
-COPY . .
-CMD ["npx", "next", "dev", "src/main/js"]
+RUN apk add --no-cache libc6-compat
+
+WORKDIR /app
 
 
 FROM base AS builder
-WORKDIR /app
-COPY --from=base /app/node_modules ./node_modules
+
+COPY package.json package-lock.json ./
+
+RUN npm ci
+
 COPY . .
-RUN \
-  if [ -f package-lock.json ]; then npm run build:next; \
-  else echo "Lockfile not found in build step." && exit 1; \
-  fi
+
+CMD ["npx", "next", "build"]
+
+FROM base AS development
+WORKDIR /app
+
+ENV NODE_ENV=development
+ENV WATCHPACK_POLLING=true
+ENV CHOKIDAR_USEPOLLING=true
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+
+WORKDIR /app/src/main/js
+
+CMD ["npx", "next", "dev"]
+
 
 FROM base AS production
-WORKDIR /app
+
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
+
+WORKDIR /app
+
 COPY --from=builder /app/src/main/js/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/src/main/js/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/src/main/js/.next/static ./.next/static
+
 USER nextjs
+
 EXPOSE 3000
+
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
+
 CMD ["node", "src/main/js/server.js"]
