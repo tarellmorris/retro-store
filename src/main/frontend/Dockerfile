@@ -4,11 +4,12 @@ FROM base AS builder
 
 COPY . ./frontend
 WORKDIR /frontend
-RUN rm -rf node_modules package-lock.json && npm i
+RUN npm ci
 
 CMD ["npx", "next", "build"]
 
 FROM builder AS development
+
 CMD ["npx", "next", "dev", "--webpack"]
 
 

@@ -1,18 +1,26 @@
 services:
   frontend:
-    platform: linux/amd64
     build:
       target: development
     environment:
       NODE_ENV: development
       CHOKIDAR_USEPOLLING: true
-    volumes:
-      - type: bind
-        source: ./src/main/frontend/.next
-        target: /frontend/.next
-      - type: bind
-        source: ./src/main/frontend/node_modules
-        target: /frontend/node_modules
+    develop:
+      watch:
+        - action: sync
+          path: ./src/main/frontend/
+          target: /frontend/
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package.json
+  #    volumes:
+  #      - type: bind
+  #        source: ./src/main/frontend/.next
+  #        target: /frontend/.next
+  #      - type: bind
+  #        source: ./src/main/frontend/node_modules
+  #        target: /frontend/node_modules
 
   backend:
     environment:
