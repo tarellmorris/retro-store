@@ -1,13 +1,18 @@
 services:
   frontend:
+    platform: linux/amd64
     build:
       target: development
-    volumes:
-      - .:/app
-      - /app/node_modules
     environment:
       NODE_ENV: development
-    working_dir: /app/src/main/js
+      CHOKIDAR_USEPOLLING: true
+    volumes:
+      - type: bind
+        source: ./src/main/frontend/.next
+        target: /frontend/.next
+      - type: bind
+        source: ./src/main/frontend/node_modules
+        target: /frontend/node_modules
 
   backend:
     environment:

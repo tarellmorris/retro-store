@@ -1,43 +1,27 @@
-FROM node:20.19.6-alpine3.22 AS base
-
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-
+FROM node:25-slim AS base
 
 FROM base AS builder
 
-COPY package.json package-lock.json ./
-RUN npm ci
-COPY . .
-CMD ["next", "build"]
+COPY . ./frontend
+WORKDIR /frontend
+RUN rm -rf node_modules package-lock.json && npm i
 
-FROM base AS development
+CMD ["npx", "next", "build"]
 
-ENV NODE_ENV=development
-ENV WATCHPACK_POLLING=true
-ENV CHOKIDAR_USEPOLLING=true
-COPY package.json package-lock.json ./
-RUN npm ci
-COPY . .
-CMD ["next", "dev"]
+FROM builder AS development
+CMD ["npx", "next", "dev", "--webpack"]
 
 
 FROM base AS production
 
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
-
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
 USER nextjs
-
 EXPOSE 3000
-
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["next", "start"]
+CMD ["node", "server.js"]

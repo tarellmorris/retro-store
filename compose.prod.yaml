@@ -3,9 +3,10 @@ services:
     build:
       target: production
     environment:
-      - NODE_ENV=production
+      NODE_ENV: production
+      NEXT_TELEMETRY_DISABLED: 1
 
   backend:
     environment:
-      - NODE_ENV=production
+      NODE_ENV: production
 
