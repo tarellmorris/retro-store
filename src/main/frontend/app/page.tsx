@@ -14,6 +14,24 @@ const cards = [
     headerText: "Video Game Shop",
     image: retroGames,
   },
+  {
+    alt: "retro-games",
+    ctaText: "Shop",
+    ctaURL: "/retro-games",
+    description:
+      "Search through our collection of second-hand, old school video games",
+    headerText: "Video Game Shop",
+    image: retroGames,
+  },
+  {
+    alt: "retro-games",
+    ctaText: "Shop",
+    ctaURL: "/retro-games",
+    description:
+      "Search through our collection of second-hand, old school video games",
+    headerText: "Video Game Shop",
+    image: retroGames,
+  },
 ];
 
 export default async function Home() {
@@ -21,7 +39,7 @@ export default async function Home() {
     <div className="flex flex-col w-full h-full">
       <Hero
         alt="retro hero"
-        headerCopy="A blast from the past"
+        headerCopy="A Blast From The Past"
         image={retroSplash}
       />
       <CardsBlock cards={cards} />
