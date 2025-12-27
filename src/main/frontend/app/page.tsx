@@ -1,36 +1,37 @@
 import { CardsBlock } from "@/components/cards-block";
 import { Hero } from "@/components/hero";
 
+import cassettes from "../public/cassettes.jpg";
+import electronics from "../public/electronics.jpg";
 import retroSplash from "../public/retro-games-hero.jpg";
 import retroGames from "../public/retro-games.jpg";
 
 const cards = [
   {
-    alt: "retro-games",
+    alt: "games",
     ctaText: "Shop",
-    ctaURL: "/retro-games",
+    ctaURL: "/games",
     description:
       "Search through our collection of second-hand, old school video games",
-    headerText: "Video Game Shop",
+    headerText: "Video Games",
     image: retroGames,
   },
   {
-    alt: "retro-games",
-    ctaText: "Shop",
-    ctaURL: "/retro-games",
-    description:
-      "Search through our collection of second-hand, old school video games",
-    headerText: "Video Game Shop",
-    image: retroGames,
+    alt: "music",
+    ctaText: "Browse",
+    ctaURL: "/music",
+    description: "Browse our on-hand vinyls and cassette tapes",
+    headerText: "Music",
+    image: cassettes,
   },
   {
-    alt: "retro-games",
-    ctaText: "Shop",
-    ctaURL: "/retro-games",
+    alt: "electronics",
+    ctaText: "Explore",
+    ctaURL: "/electronics",
     description:
-      "Search through our collection of second-hand, old school video games",
-    headerText: "Video Game Shop",
-    image: retroGames,
+      "VCRs, tape players, and more. Go diving for treasure in our electronics collection",
+    headerText: "Electronics",
+    image: electronics,
   },
 ];
 
