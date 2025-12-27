@@ -14,13 +14,6 @@ services:
             - node_modules/
         - action: rebuild
           path: package.json
-  #    volumes:
-  #      - type: bind
-  #        source: ./src/main/frontend/.next
-  #        target: /frontend/.next
-  #      - type: bind
-  #        source: ./src/main/frontend/node_modules
-  #        target: /frontend/node_modules
 
   backend:
     environment:
