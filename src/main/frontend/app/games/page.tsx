@@ -5,8 +5,8 @@ export default function Games() {
   return (
     <div className="flex flex-col w-full h-full">
       <Hero
-        alt="retro hero"
-        headerCopy="A Blast From The Past"
+        alt="games hero"
+        headerCopy="Real carts and discs for real hardware"
         image={gameWall}
       />
     </div>
