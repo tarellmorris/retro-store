@@ -3,62 +3,181 @@ USE retro_store;
 DROP TABLE IF EXISTS stock_data_games;
 CREATE TABLE stock_data_games
 (
-    id         INT AUTO_INCREMENT PRIMARY KEY,
-    name       VARCHAR(255),
-    platform   VARCHAR(50),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    image      VARCHAR(30),
-    price      DECIMAL(10, 2)
+    id               INT AUTO_INCREMENT PRIMARY KEY,
+    name             VARCHAR(255)   NOT NULL,
+    platform         VARCHAR(50)    NOT NULL,
+    description      TEXT,
+    long_description TEXT,
+    created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    image            VARCHAR(30),
+    price            DECIMAL(10, 2) NOT NULL
 );
 
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Sonic The Hedgehog 2', 'SEGA Genesis', 'sonic-2.jpg', 15.75);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Super Mario World', 'Super Nintendo Entertainment System (SNES)', 'smw.jpg', 30.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Chrono Trigger', 'Super Nintendo Entertainment System (SNES)', 'chrono-trigger.jpg', 220.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Final Fantasy III', 'Super Nintendo Entertainment System (SNES)', 'ff-3.jpg', 80.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Bubsy', 'SEGA Genesis', 'bubsy.jpg', 10.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Pokemon Red', 'Nintendo Game Boy', 'poke-red.jpg', 45.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('The Legend of Zelda: A Link to the Past', 'Super Nintendo Entertainment System (SNES)', 'zelda-alttp.jpg',
-        35.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Mega Man X', 'Super Nintendo Entertainment System (SNES)', 'mega-man-x.jpg', 60.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Street Fighter II Turbo', 'Super Nintendo Entertainment System (SNES)', 'sf2-turbo.jpg', 25.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Donkey Kong Country', 'Super Nintendo Entertainment System (SNES)', 'dkc.jpg', 28.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Super Metroid', 'Super Nintendo Entertainment System (SNES)', 'super-metroid.jpg', 70.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('EarthBound', 'Super Nintendo Entertainment System (SNES)', 'earthbound.jpg', 325.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Golden Axe', 'SEGA Genesis', 'golden-axe.jpg', 15.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Streets of Rage 2', 'SEGA Genesis', 'sor-2.jpg', 52.50);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Altered Beast', 'SEGA Genesis', 'altered-beast.jpg', 12.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Mortal Kombat', 'SEGA Genesis', 'mk-genesis.jpg', 23.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Super Mario Bros. 3', 'Nintendo Entertainment System (NES)', 'smb3.jpg', 29.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('The Legend of Zelda', 'Nintendo Entertainment System (NES)', 'zelda-nes.jpg', 34.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Contra', 'Nintendo Entertainment System (NES)', 'contra.jpg', 27.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Metroid II: Return of Samus', 'Nintendo Game Boy', 'metroid-ii.jpg', 25.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('The Legend of Zelda: Link''s Awakening', 'Nintendo Game Boy', 'links-awakening.jpg', 40.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Tetris', 'Nintendo Game Boy', 'tetris-gb.jpg', 20.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Castlevania: Symphony of the Night', 'Sony PlayStation', 'sotn.jpg', 90.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Metal Gear Solid', 'Sony PlayStation', 'mgs.jpg', 50.00);
-INSERT INTO stock_data_games (name, platform, image, price)
-VALUES ('Final Fantasy VII', 'Sony PlayStation', 'ff7.jpg', 30.00);
+USE retro_store;
+
+DROP TABLE IF EXISTS stock_data_games;
+CREATE TABLE stock_data_games
+(
+    id               INT AUTO_INCREMENT PRIMARY KEY,
+    name             VARCHAR(255)   NOT NULL,
+    platform         VARCHAR(50)    NOT NULL,
+    description      TEXT,
+    long_description TEXT,
+    created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    image            VARCHAR(30),
+    price            DECIMAL(10, 2) NOT NULL
+);
+
+INSERT INTO stock_data_games
+    (name, platform, description, long_description, image, price)
+VALUES ('Sonic The Hedgehog 2',
+        'SEGA Genesis',
+        'A fast-paced platformer featuring Sonic and Tails.',
+        'Sonic the Hedgehog 2 builds upon the original with faster gameplay, larger levels, and the introduction of Tails. Players race through iconic zones, collect rings, and stop Dr. Robotnik from assembling the Death Egg.',
+        'sonic-2.jpg',
+        15.75),
+       ('Super Mario World',
+        'Super Nintendo Entertainment System (SNES)',
+        'Mario explores Dinosaur Land with Yoshi.',
+        'Super Mario World introduced Yoshi and refined platforming mechanics with secret exits, branching paths, and inventive level design. It remains one of the most celebrated Mario games ever made.',
+        'smw.jpg',
+        30.00),
+       ('Chrono Trigger',
+        'Super Nintendo Entertainment System (SNES)',
+        'A legendary RPG featuring time travel.',
+        'Chrono Trigger follows a group of heroes traveling through time to prevent a global catastrophe. With multiple endings, memorable characters, and a timeless soundtrack, it is widely regarded as one of the greatest RPGs of all time.',
+        'chrono-trigger.jpg',
+        220.00),
+       ('Final Fantasy III',
+        'Super Nintendo Entertainment System (SNES)',
+        'An epic RPG with a powerful story.',
+        'Known as Final Fantasy VI in Japan, this entry features a large ensemble cast, a villain-driven narrative, and emotional storytelling that pushed the limits of 16-bit role-playing games.',
+        'ff-3.jpg',
+        80.00),
+       ('Bubsy',
+        'SEGA Genesis',
+        'A colorful platformer starring Bubsy.',
+        'Bubsy is a fast-paced platform game focused on speed and exploration. While challenging, it became a recognizable mascot title during the early 90s console era.',
+        'bubsy.jpg',
+        10.00),
+       ('Pokemon Red',
+        'Nintendo Game Boy',
+        'The original Pokémon adventure.',
+        'Pokémon Red launched a worldwide phenomenon, allowing players to explore the Kanto region, capture and train 151 Pokémon, and battle rivals on the journey to become Pokémon Champion.',
+        'poke-red.jpg',
+        45.00),
+       ('The Legend of Zelda: A Link to the Past',
+        'Super Nintendo Entertainment System (SNES)',
+        'A classic Zelda adventure across two worlds.',
+        'A Link to the Past refined the Zelda formula with top-down exploration, dungeon puzzles, and a parallel Dark World. Its influence can be seen across the entire Zelda franchise.',
+        'zelda-alttp.jpg',
+        35.00),
+       ('Mega Man X',
+        'Super Nintendo Entertainment System (SNES)',
+        'A futuristic evolution of Mega Man.',
+        'Mega Man X modernized the series with wall-jumping, hidden upgrades, and intense boss battles. Set in a futuristic world, it remains a fan-favorite action platformer.',
+        'mega-man-x.jpg',
+        60.00),
+       ('Street Fighter II Turbo',
+        'Super Nintendo Entertainment System (SNES)',
+        'Fast-paced competitive fighting action.',
+        'Street Fighter II Turbo perfected the fighting game formula with faster gameplay, balanced characters, and precise controls, solidifying its place as an arcade and console classic.',
+        'sf2-turbo.jpg',
+        25.00),
+       ('Donkey Kong Country',
+        'Super Nintendo Entertainment System (SNES)',
+        'A visually impressive platformer.',
+        'Donkey Kong Country stunned players with its pre-rendered graphics and tight gameplay. Featuring cooperative play and memorable music, it helped redefine SNES-era platformers.',
+        'dkc.jpg',
+        28.00),
+       ('Super Metroid',
+        'Super Nintendo Entertainment System (SNES)',
+        'A dark and atmospheric sci-fi adventure.',
+        'Super Metroid emphasizes exploration, environmental storytelling, and isolation. Its open-ended design and mood established the blueprint for the Metroidvania genre.',
+        'super-metroid.jpg',
+        70.00),
+       ('EarthBound',
+        'Super Nintendo Entertainment System (SNES)',
+        'A quirky RPG with modern humor.',
+        'EarthBound blends everyday settings with RPG mechanics, delivering humor, emotional depth, and a unique tone that has earned it a devoted cult following.',
+        'earthbound.jpg',
+        325.00),
+       ('Golden Axe',
+        'SEGA Genesis',
+        'A fantasy-themed beat ’em up.',
+        'Golden Axe allows players to choose from heroic warriors battling through mythological landscapes using swords, magic, and cooperative gameplay.',
+        'golden-axe.jpg',
+        15.00),
+       ('Streets of Rage 2',
+        'SEGA Genesis',
+        'A classic side-scrolling brawler.',
+        'Streets of Rage 2 refined the beat ’em up genre with improved combat mechanics, cooperative play, and a legendary soundtrack.',
+        'sor-2.jpg',
+        52.50),
+       ('Altered Beast',
+        'SEGA Genesis',
+        'A mythological action game.',
+        'Altered Beast casts players as a resurrected warrior who transforms into powerful beasts. It became an iconic early Genesis title.',
+        'altered-beast.jpg',
+        12.00),
+       ('Mortal Kombat',
+        'SEGA Genesis',
+        'The original brutal fighting game.',
+        'Mortal Kombat shocked audiences with digitized characters, violent combat, and iconic fatalities, helping shape the future of fighting games.',
+        'mk-genesis.jpg',
+        23.00),
+       ('Super Mario Bros. 3',
+        'Nintendo Entertainment System (NES)',
+        'One of the greatest platformers ever made.',
+        'Super Mario Bros. 3 introduced world maps, power-up suits, and inventive level design, setting a new standard for platform games.',
+        'smb3.jpg',
+        29.00),
+       ('The Legend of Zelda',
+        'Nintendo Entertainment System (NES)',
+        'The original open-world Zelda adventure.',
+        'The Legend of Zelda encouraged exploration and discovery, laying the foundation for one of gaming’s most influential franchises.',
+        'zelda-nes.jpg',
+        34.00),
+       ('Contra',
+        'Nintendo Entertainment System (NES)',
+        'A challenging run-and-gun shooter.',
+        'Contra is known for its intense difficulty, cooperative gameplay, and fast-paced action, becoming a defining NES-era shooter.',
+        'contra.jpg',
+        27.00),
+       ('Metroid II: Return of Samus',
+        'Nintendo Game Boy',
+        'A focused Metroid adventure.',
+        'Metroid II takes Samus to planet SR388 on a mission to eliminate the Metroids, introducing darker themes and more structured exploration.',
+        'metroid-ii.jpg',
+        25.00),
+       ('The Legend of Zelda: Link''s Awakening',
+        'Nintendo Game Boy',
+        'A unique Zelda story on a mysterious island.',
+        'Link’s Awakening tells a surreal Zelda tale set outside Hyrule, featuring inventive dungeons, memorable characters, and an emotional narrative.',
+        'links-awakening.jpg',
+        40.00),
+       ('Tetris',
+        'Nintendo Game Boy',
+        'The timeless puzzle classic.',
+        'Tetris became synonymous with the Game Boy, offering endlessly addictive puzzle gameplay that appeals to players of all ages.',
+        'tetris-gb.jpg',
+        20.00),
+       ('Castlevania: Symphony of the Night',
+        'Sony PlayStation',
+        'A gothic action-RPG masterpiece.',
+        'Symphony of the Night reinvented Castlevania with non-linear exploration, RPG systems, and atmospheric storytelling, influencing countless future games.',
+        'sotn.jpg',
+        90.00),
+       ('Metal Gear Solid',
+        'Sony PlayStation',
+        'A cinematic stealth-action experience.',
+        'Metal Gear Solid combined stealth gameplay with cinematic storytelling, voice acting, and complex themes, redefining narrative-driven games.',
+        'mgs.jpg',
+        50.00),
+       ('Final Fantasy VII',
+        'Sony PlayStation',
+        'A genre-defining RPG.',
+        'Final Fantasy VII introduced 3D graphics, cinematic cutscenes, and an emotionally charged story that brought JRPGs to a global audience.',
+        'ff7.jpg',
+        30.00);
+
