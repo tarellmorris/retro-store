@@ -8,7 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/games")
+@RequestMapping("/games")
 @RequiredArgsConstructor
 public class StockDataGameController {
 
