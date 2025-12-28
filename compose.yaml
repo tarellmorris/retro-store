@@ -14,6 +14,8 @@ services:
       dockerfile: src/main/java/Dockerfile
     ports:
       - "8080:8080"
+    depends_on:
+      - database
 
   database:
     container_name: 'maria-db'

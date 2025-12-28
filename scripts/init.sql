@@ -4,28 +4,13 @@ DROP TABLE IF EXISTS stock_data_games;
 CREATE TABLE stock_data_games
 (
     id               INT AUTO_INCREMENT PRIMARY KEY,
-    name             VARCHAR(255)   NOT NULL,
-    platform         VARCHAR(50)    NOT NULL,
+    name             VARCHAR(255),
+    platform         VARCHAR(50),
     description      TEXT,
     long_description TEXT,
     created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     image            VARCHAR(30),
-    price            DECIMAL(10, 2) NOT NULL
-);
-
-USE retro_store;
-
-DROP TABLE IF EXISTS stock_data_games;
-CREATE TABLE stock_data_games
-(
-    id               INT AUTO_INCREMENT PRIMARY KEY,
-    name             VARCHAR(255)   NOT NULL,
-    platform         VARCHAR(50)    NOT NULL,
-    description      TEXT,
-    long_description TEXT,
-    created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    image            VARCHAR(30),
-    price            DECIMAL(10, 2) NOT NULL
+    price            DECIMAL(10, 2)
 );
 
 INSERT INTO stock_data_games

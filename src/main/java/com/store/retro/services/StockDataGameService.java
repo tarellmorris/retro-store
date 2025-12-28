@@ -30,25 +30,7 @@ public class StockDataGameService {
                 Sort.by(direction, sortBy)
         );
 
-        return repository.listAll(pageable);
-    }
-
-    public Page<StockDataGameEntity> getGamesByPlatform(
-            String platform,
-            int page,
-            int size,
-            String sortBy,
-            Sort.Direction direction
-    ) {
-        size = Math.min(size, 50);
-
-        Pageable pageable = PageRequest.of(
-                page,
-                size,
-                Sort.by(direction, sortBy)
-        );
-
-        return repository.findByPlatform(platform, pageable);
+        return repository.findAll(pageable);
     }
 }
 

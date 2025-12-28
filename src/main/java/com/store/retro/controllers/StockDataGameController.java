@@ -5,7 +5,10 @@ import com.store.retro.services.StockDataGameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/games")
@@ -22,18 +25,5 @@ public class StockDataGameController {
             @RequestParam(defaultValue = "ASC") Sort.Direction direction
     ) {
         return service.getGames(page, size, sortBy, direction);
-    }
-
-    @GetMapping("/platform/{platform}")
-    public Page<StockDataGameEntity> listByPlatform(
-            @PathVariable String platform,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "12") int size,
-            @RequestParam(defaultValue = "price") String sortBy,
-            @RequestParam(defaultValue = "ASC") Sort.Direction direction
-    ) {
-        return service.getGamesByPlatform(
-                platform, page, size, sortBy, direction
-        );
     }
 }
