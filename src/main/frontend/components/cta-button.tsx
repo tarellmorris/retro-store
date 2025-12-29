@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Button, Link } from "@heroui/react";
 
 export interface CTAButtonProps {
   ctaURL: string;
@@ -7,11 +7,13 @@ export interface CTAButtonProps {
 
 export const CTAButton = ({ ctaURL, text }: CTAButtonProps) => {
   return (
-    <Link
-      className="flex justify-center p-3 rounded-4xl bg-pink-600 hover:bg-pink-700 font-bold text-lg text-zinc-50"
+    <Button
+      as={Link}
+      className="bg-pink-600 text-lg text-zinc-50 w-full"
       href={ctaURL}
+      variant="shadow"
     >
       {text}
-    </Link>
+    </Button>
   );
 };

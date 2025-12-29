@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@plugin './hero.ts';
+@source '../node_modules/@heroui/theme/dist/**/*.{ts,tsx}';
+@custom-variant dark (&:is(.dark *));
+
 :root {
     --background: #ffffff;
     --foreground: #171717;

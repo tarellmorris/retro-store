@@ -30,6 +30,7 @@ export const StockItem = ({
           alt={alt}
           className="p-4"
           fill={true}
+          loading="lazy"
           src={`/stock/games/${url}`}
           style={{ objectFit: "contain" }}
         />
