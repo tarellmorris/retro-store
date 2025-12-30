@@ -5,6 +5,7 @@ services:
     environment:
       NODE_ENV: development
       CHOKIDAR_USEPOLLING: true
+      NEXT_PUBLIC_API_BASE: http://nginx
     develop:
       watch:
         - action: sync

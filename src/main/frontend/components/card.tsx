@@ -20,7 +20,7 @@ export const Card = ({
   image,
 }: CardProps) => {
   return (
-    <div className="flex flex-col flex-1 justify-between p-4 bg-zinc-50 min-h-100 h-auto min-w-80 w-auto rounded-2xl drop-shadow-2xl relative">
+    <div className="flex flex-col flex-1 justify-between p-4 bg-zinc-50 min-h-100 h-auto min-w-80 w-auto rounded-2xl drop-shadow-sm relative">
       <div>
         <div className="overflow-hidden rounded-2xl relative h-40 w-auto drop-shadow-sm">
           <Image alt={alt} placeholder="blur" src={image} />

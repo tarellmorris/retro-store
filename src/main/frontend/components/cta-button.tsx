@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, Link } from "@heroui/react";
 
 export interface CTAButtonProps {
@@ -9,9 +11,8 @@ export const CTAButton = ({ ctaURL, text }: CTAButtonProps) => {
   return (
     <Button
       as={Link}
-      className="bg-pink-600 text-lg text-zinc-50 w-full"
+      className="bg-pink-600 text-lg text-zinc-50 drop-shadow-sm"
       href={ctaURL}
-      variant="shadow"
     >
       {text}
     </Button>

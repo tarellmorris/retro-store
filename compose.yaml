@@ -4,6 +4,8 @@ services:
     build: src/main/frontend
     depends_on:
       - backend
+    networks:
+      - retro-net
     ports:
       - "3000:3000"
 
@@ -12,6 +14,8 @@ services:
     build:
       context: .
       dockerfile: src/main/java/Dockerfile
+    networks:
+      - retro-net
     ports:
       - "8080:8080"
     depends_on:
@@ -21,6 +25,8 @@ services:
     container_name: 'maria-db'
     image: mariadb:latest
     restart: always
+    networks:
+      - retro-net
     environment:
       MARIADB_ROOT_PASSWORD: root_pwd
       MARIADB_DATABASE: retro_store
@@ -36,6 +42,8 @@ services:
     image: nginx:alpine
     container_name: 'nginx'
     restart: unless-stopped
+    networks:
+      - retro-net
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
@@ -46,3 +54,7 @@ services:
 
 volumes:
   mariadb_data: { }
+
+networks:
+  retro-net:
+    driver: bridge
