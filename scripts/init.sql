@@ -105,12 +105,6 @@ VALUES ('Sonic The Hedgehog 2',
         'Altered Beast casts players as a resurrected warrior who transforms into powerful beasts. It became an iconic early Genesis title.',
         'altered-beast.jpg',
         12.00),
-       ('Mortal Kombat',
-        'SEGA Genesis',
-        'The original brutal fighting game.',
-        'Mortal Kombat shocked audiences with digitized characters, violent combat, and iconic fatalities, helping shape the future of fighting games.',
-        'mk-genesis.jpg',
-        23.00),
        ('Super Mario Bros. 3',
         'Nintendo Entertainment System (NES)',
         'One of the greatest platformers ever made.',
@@ -166,3 +160,9 @@ VALUES ('Sonic The Hedgehog 2',
         'ff7.jpg',
         30.00);
 
+DROP TABLE IF EXISTS shopping_carts;
+CREATE TABLE shopping_carts
+(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    FOREIGN KEY (id) REFERENCES stock_data_games (id)
+);

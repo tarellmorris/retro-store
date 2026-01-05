@@ -26,7 +26,7 @@ export default async function Games({
   } = await searchParams;
 
   const page = Number(paramPage ?? 0);
-  const size = Number(paramSize ?? 6);
+  const size = Number(paramSize ?? 9);
   const sortBy = paramSortBy ?? "name";
   const direction = paramDirection ?? "ASC";
 
@@ -57,7 +57,7 @@ export default async function Games({
         headerCopy="Real carts and discs for real hardware"
         image={gameWall}
       />
-      <div className="flex flex-wrap justify-center w-full gap-4 p-8">
+      <div className="flex flex-wrap justify-center gap-6 p-8">
         {data.content.map((game: Game) => (
           <StockItem
             alt={game.name}
