@@ -20,7 +20,7 @@ public class StockDataGameController {
     @GetMapping
     public Page<StockDataGameEntity> listGames(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "12") int size,
+            @RequestParam(defaultValue = "9") int size,
             @RequestParam(defaultValue = "name") String sortBy,
             @RequestParam(defaultValue = "ASC") Sort.Direction direction
     ) {

@@ -7,15 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(
-        name = "stock_data_games",
-        indexes = {
-                @Index(name = "idx_game_name", columnList = "name"),
-                @Index(name = "idx_game_platform", columnList = "platform"),
-                @Index(name = "idx_game_price", columnList = "price"),
-                @Index(name = "idx_game_created_at", columnList = "created_at")
-        }
-)
+@Table(name = "stock_data_games")
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,12 +31,18 @@ public class StockDataGameEntity {
     @Column(columnDefinition = "TEXT")
     private String longDescription;
 
-    @Column(name = "created_at", updatable = false, insertable = false)
-    private LocalDateTime createdAt;
-
     @Column(length = 30)
     private String image;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
+
+    @Column(nullable = false)
+    private Integer quantity;
+
+    @Column(name = "created_at", updatable = false, insertable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", updatable = false, insertable = false)
+    private LocalDateTime updatedAt;
 }
