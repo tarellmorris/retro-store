@@ -1,12 +1,12 @@
 package com.store.retro.services;
 
-import com.store.retro.models.entities.StockDataGameEntity;
+import com.store.retro.model.entities.GamesStockEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
-public interface StockDataGameService {
+public interface GamesStockService {
 
-    Page<StockDataGameEntity> getGames(
+    Page<GamesStockEntity> getGames(
             int page,
             int size,
             String sortBy,

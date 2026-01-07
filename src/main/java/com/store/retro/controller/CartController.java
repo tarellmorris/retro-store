@@ -1,8 +1,8 @@
-package com.store.retro.controllers;
+package com.store.retro.controller;
 
-import com.store.retro.models.dtos.CartDTOs.AddCartItemRequest;
-import com.store.retro.models.dtos.CartDTOs.CartResponse;
-import com.store.retro.models.dtos.CartDTOs.UpdateCartItemRequest;
+import com.store.retro.model.dtos.CartDTOs.AddCartItemRequest;
+import com.store.retro.model.dtos.CartDTOs.CartResponse;
+import com.store.retro.model.dtos.CartDTOs.UpdateCartItemRequest;
 import com.store.retro.services.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.store.retro.models.entities;
+package com.store.retro.model.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,7 +30,7 @@ public class CartItemEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "game_id")
-    private StockDataGameEntity game;
+    private GamesStockEntity game;
 
     @Column(nullable = false)
     private Integer quantity;

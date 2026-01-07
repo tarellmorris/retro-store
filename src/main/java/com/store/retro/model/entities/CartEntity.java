@@ -1,5 +1,6 @@
-package com.store.retro.models.entities;
+package com.store.retro.model.entities;
 
+import com.store.retro.model.entities.helpers.CartStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,7 +38,7 @@ public class CartEntity {
 
     @Column(name = "created_at", updatable = false, insertable = false)
     private LocalDateTime createdAt;
-    
+
     @Column(name = "updated_at", insertable = false)
     private LocalDateTime updatedAt;
 }

@@ -1,7 +1,7 @@
-package com.store.retro.controllers;
+package com.store.retro.controller;
 
-import com.store.retro.models.entities.StockDataGameEntity;
-import com.store.retro.services.StockDataGameService;
+import com.store.retro.model.entities.GamesStockEntity;
+import com.store.retro.services.GamesStockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/games")
 @RequiredArgsConstructor
-public class StockDataGameController {
+public class GamesStockController {
 
-    private final StockDataGameService service;
+    private final GamesStockService service;
 
     @GetMapping
-    public Page<StockDataGameEntity> listGames(
+    public Page<GamesStockEntity> listGames(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "9") int size,
             @RequestParam(defaultValue = "name") String sortBy,

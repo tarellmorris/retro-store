@@ -1,6 +1,6 @@
 package com.store.retro.repositories;
 
-import com.store.retro.models.entities.CartItemEntity;
+import com.store.retro.model.entities.CartItemEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

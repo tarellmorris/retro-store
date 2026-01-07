@@ -1,4 +1,4 @@
-package com.store.retro.models.dtos;
+package com.store.retro.model.dtos;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

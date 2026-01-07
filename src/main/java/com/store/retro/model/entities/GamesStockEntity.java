@@ -1,4 +1,4 @@
-package com.store.retro.models.entities;
+package com.store.retro.model.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class StockDataGameEntity {
+public class GamesStockEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

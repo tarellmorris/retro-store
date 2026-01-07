@@ -1,8 +1,8 @@
 package com.store.retro.services.implimentations;
 
-import com.store.retro.models.entities.StockDataGameEntity;
-import com.store.retro.repositories.StockDataGameRepository;
-import com.store.retro.services.StockDataGameService;
+import com.store.retro.model.entities.GamesStockEntity;
+import com.store.retro.repositories.GamesStockRepository;
+import com.store.retro.services.GamesStockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class StockDataGameServiceImpl implements StockDataGameService {
-    private final StockDataGameRepository repository;
+public class GamesStockServiceImpl implements GamesStockService {
+    private final GamesStockRepository repository;
 
     @Override
-    public Page<StockDataGameEntity> getGames(
+    public Page<GamesStockEntity> getGames(
             int page,
             int size,
             String sortBy,

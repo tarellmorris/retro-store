@@ -1,4 +1,4 @@
-package com.store.retro.models.entities;
+package com.store.retro.model.entities.helpers;
 
 public enum CartStatus {
     ACTIVE,
