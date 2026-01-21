@@ -11,6 +11,7 @@ export interface Game {
   name: string;
   platform: string;
   price: number;
+  quantity: number;
 }
 
 export default async function Games({
@@ -62,10 +63,12 @@ export default async function Games({
           <StockItem
             alt={game.name}
             description={game.description}
+            id={game.id}
             key={game.id}
             name={game.name}
             platform={game.platform}
             price={game.price}
+            quantity={game.quantity}
             url={game.image}
           />
         ))}

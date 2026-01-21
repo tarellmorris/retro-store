@@ -34,6 +34,10 @@ public class CartServiceHelpers {
                 .orElseThrow(() -> new IllegalStateException("Active cart not found"));
     }
 
+    public CartEntity getOrCreateActiveCart(Integer userId) {
+        return cartRepository.findByUserIdAndStatus(userId, CartStatus.ACTIVE).orElseGet(() -> createCart(userId));
+    }
+
     public GamesStockEntity getGame(Integer gameId) {
         return gamesStockRepository.findById(gameId)
                 .orElseThrow(() -> new IllegalArgumentException("Game not found"));

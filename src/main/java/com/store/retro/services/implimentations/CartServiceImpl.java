@@ -38,7 +38,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public CartResponse addItem(Integer userId, @NonNull AddCartItemRequest request) {
-        CartEntity cart = cartServiceHelpers.getActiveCart(userId);
+        CartEntity cart = cartServiceHelpers.getOrCreateActiveCart(userId);
         GamesStockEntity game = cartServiceHelpers.getGame(request.gameId());
 
         cartServiceHelpers.validateStock(game, request.quantity());

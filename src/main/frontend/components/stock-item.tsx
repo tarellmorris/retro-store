@@ -1,33 +1,46 @@
 "use client";
 
-import { Card, CardBody, CardFooter } from "@heroui/react";
+import { Button, Card, CardBody, CardFooter } from "@heroui/react";
 import Image from "next/image";
 
 export interface StockItemProps {
   alt: string;
   description: string;
+  id: number;
   name: string;
   platform: string;
   price: number;
+  quantity: number;
   url: string;
 }
 
 export const StockItem = ({
   alt,
   description,
+  id,
   name,
   platform,
   price,
+  quantity,
   url,
 }: StockItemProps) => {
   const formatter = new Intl.NumberFormat("en-US", {
     currency: "USD",
     style: "currency",
   });
+  const addToCart = async (data: { gameId: number; quantity: number }) => {
+    await fetch("/api/cart/items", {
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        "X-USER-ID": "111222",
+      },
+      method: "POST",
+    });
+  };
   return (
     <Card
       className="flex justify-start flex-col w-150 lg:w-100 bg-zinc-50 p-4 rounded-2xl"
-      isPressable
       shadow="sm"
     >
       <CardBody className="overflow-visible p-0">
@@ -47,6 +60,17 @@ export const StockItem = ({
         <h4 className="text-md font-semibold">{platform}</h4>
         <p className="text-sm">{description}</p>
         <p className="font-semibold text-md">{formatter.format(price)}</p>
+        <div className="flex flex-col">
+          <p className="font-normal text-md text-red-500 mt-2">{`In stock`}</p>
+          <p className="font-semibold text-md">{`Quantity: ${quantity}`}</p>
+        </div>
+        <Button
+          className="mt-3"
+          color="primary"
+          onPress={() => addToCart({ gameId: id, quantity: 1 })}
+        >
+          Add to cart
+        </Button>
       </CardFooter>
     </Card>
   );
