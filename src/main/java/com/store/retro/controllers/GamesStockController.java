@@ -1,6 +1,6 @@
-package com.store.retro.controller;
+package com.store.retro.controllers;
 
-import com.store.retro.model.entities.GamesStockEntity;
+import com.store.retro.models.entities.GamesStockEntity;
 import com.store.retro.services.GamesStockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

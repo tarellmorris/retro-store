@@ -33,7 +33,6 @@ export const StockItem = ({
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
-        "X-USER-ID": "111222",
       },
       method: "POST",
     });

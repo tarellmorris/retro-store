@@ -1,11 +1,12 @@
-package com.store.retro.controller;
+package com.store.retro.controllers;
 
-import com.store.retro.model.dtos.CartDTOs.AddCartItemRequest;
-import com.store.retro.model.dtos.CartDTOs.CartResponse;
-import com.store.retro.model.dtos.CartDTOs.UpdateCartItemRequest;
+import com.store.retro.models.dtos.CartDTOs.AddCartItemRequest;
+import com.store.retro.models.dtos.CartDTOs.CartResponse;
+import com.store.retro.models.dtos.CartDTOs.UpdateCartItemRequest;
 import com.store.retro.services.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,7 +18,7 @@ public class CartController {
 
     @GetMapping
     public CartResponse getActiveCart(
-            @RequestHeader("X-USER-ID") Integer userId
+            @AuthenticationPrincipal Integer userId
     ) {
         return cartService.getOrCreateActiveCart(userId);
     }
@@ -25,7 +26,7 @@ public class CartController {
     @PostMapping("/items")
     @ResponseStatus(HttpStatus.CREATED)
     public CartResponse addItem(
-            @RequestHeader("X-USER-ID") Integer userId,
+            @AuthenticationPrincipal Integer userId,
             @RequestBody AddCartItemRequest request
     ) {
         return cartService.addItem(userId, request);
@@ -33,7 +34,7 @@ public class CartController {
 
     @PutMapping("/items/{gameId}")
     public CartResponse updateItemQuantity(
-            @RequestHeader("X-USER-ID") Integer userId,
+            @AuthenticationPrincipal Integer userId,
             @PathVariable Integer gameId,
             @RequestBody UpdateCartItemRequest request
     ) {
@@ -43,7 +44,7 @@ public class CartController {
     @DeleteMapping("/items/{gameId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeItem(
-            @RequestHeader("X-USER-ID") Integer userId,
+            @AuthenticationPrincipal Integer userId,
             @PathVariable Integer gameId
     ) {
         cartService.removeItem(userId, gameId);
@@ -51,7 +52,7 @@ public class CartController {
 
     @PostMapping("/checkout")
     public CartResponse checkout(
-            @RequestHeader("X-USER-ID") Integer userId
+            @AuthenticationPrincipal Integer userId
     ) {
         return cartService.checkout(userId);
     }

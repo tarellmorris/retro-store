@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
+
   const backendUrl = new URL(`http://backend:8080/api/games`);
   backendUrl.search = searchParams.toString();
 

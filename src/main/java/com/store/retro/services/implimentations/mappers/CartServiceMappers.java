@@ -1,8 +1,8 @@
 package com.store.retro.services.implimentations.mappers;
 
-import com.store.retro.model.dtos.CartDTOs.CartItemResponse;
-import com.store.retro.model.dtos.CartDTOs.CartResponse;
-import com.store.retro.model.entities.CartEntity;
+import com.store.retro.models.dtos.CartDTOs.CartItemResponse;
+import com.store.retro.models.dtos.CartDTOs.CartResponse;
+import com.store.retro.models.entities.CartEntity;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

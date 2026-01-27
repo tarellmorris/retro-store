@@ -1,6 +1,6 @@
 package com.store.retro.services.implimentations;
 
-import com.store.retro.model.entities.GamesStockEntity;
+import com.store.retro.models.entities.GamesStockEntity;
 import com.store.retro.repositories.GamesStockRepository;
 import com.store.retro.services.GamesStockService;
 import lombok.RequiredArgsConstructor;

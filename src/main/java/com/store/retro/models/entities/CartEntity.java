@@ -1,6 +1,6 @@
-package com.store.retro.model.entities;
+package com.store.retro.models.entities;
 
-import com.store.retro.model.entities.helpers.CartStatus;
+import com.store.retro.models.entities.helpers.CartStatus;
 import jakarta.persistence.*;
 import lombok.*;
 

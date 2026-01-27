@@ -1,4 +1,4 @@
-package com.store.retro.model.entities;
+package com.store.retro.models.entities;
 
 import jakarta.persistence.*;
 import lombok.*;

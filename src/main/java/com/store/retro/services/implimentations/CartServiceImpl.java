@@ -1,12 +1,12 @@
 package com.store.retro.services.implimentations;
 
-import com.store.retro.model.dtos.CartDTOs.AddCartItemRequest;
-import com.store.retro.model.dtos.CartDTOs.CartResponse;
-import com.store.retro.model.dtos.CartDTOs.UpdateCartItemRequest;
-import com.store.retro.model.entities.CartEntity;
-import com.store.retro.model.entities.CartItemEntity;
-import com.store.retro.model.entities.GamesStockEntity;
-import com.store.retro.model.entities.helpers.CartStatus;
+import com.store.retro.models.dtos.CartDTOs.AddCartItemRequest;
+import com.store.retro.models.dtos.CartDTOs.CartResponse;
+import com.store.retro.models.dtos.CartDTOs.UpdateCartItemRequest;
+import com.store.retro.models.entities.CartEntity;
+import com.store.retro.models.entities.CartItemEntity;
+import com.store.retro.models.entities.GamesStockEntity;
+import com.store.retro.models.entities.helpers.CartStatus;
 import com.store.retro.repositories.CartItemRepository;
 import com.store.retro.repositories.CartRepository;
 import com.store.retro.services.CartService;
