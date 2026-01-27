@@ -13,6 +13,7 @@ export const CTAButton = ({ ctaURL, text }: CTAButtonProps) => {
       as={Link}
       className="bg-pink-600 text-lg text-zinc-50 drop-shadow-sm"
       href={ctaURL}
+      isDisabled={ctaURL === ""}
     >
       {text}
     </Button>

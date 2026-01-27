@@ -18,16 +18,16 @@ const cards = [
   },
   {
     alt: "music",
-    ctaText: "Browse",
-    ctaURL: "/music",
+    ctaText: "Coming soon",
+    ctaURL: "",
     description: "Browse our on-hand vinyls and cassette tapes",
     headerText: "Music",
     image: cassettes,
   },
   {
     alt: "electronics",
-    ctaText: "Explore",
-    ctaURL: "/electronics",
+    ctaText: "Coming soon",
+    ctaURL: "",
     description:
       "VCRs, tape players, and more. Go diving for treasure in our electronics collection",
     headerText: "Electronics",
