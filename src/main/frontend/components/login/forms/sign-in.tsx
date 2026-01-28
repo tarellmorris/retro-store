@@ -33,7 +33,6 @@ export const SignInForm = ({ formData, setFormData, setStep }: FormProps) => {
         <div className="flex flex-col gap-4 w-full">
           <Input
             defaultValue={String(formData.email)}
-            disabled
             errorMessage="Please enter a valid email"
             isRequired
             label="Email"
