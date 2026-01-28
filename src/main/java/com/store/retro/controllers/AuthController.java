@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -56,6 +53,13 @@ public class AuthController {
 
         response.addHeader("Set-Cookie", cookie.toString());
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/user/exists")
+    public ResponseEntity<Boolean> userExists(@RequestParam String email) {
+        return ResponseEntity.ok(
+                userRepository.existsByEmail(email)
+        );
     }
 }
 
