@@ -20,28 +20,55 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
+
     private final JwtService jwtService;
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getServletPath();
+        return path.startsWith("/api/auth/");
+    }
+
+    @Override
     protected void doFilterInternal(
-            HttpServletRequest request,
+            @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException, java.io.IOException {
 
+        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("AUTH".equals(cookie.getName())) {
-                    Integer userId = jwtService.extractUserIdFromToken(cookie.getValue());
+        if (cookies == null) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-                    Authentication auth = new UsernamePasswordAuthenticationToken(
-                            userId, null, List.of()
-                    );
-
-                    SecurityContextHolder.getContext().setAuthentication(auth);
-                }
+        for (Cookie cookie : cookies) {
+            if (!"AUTH".equals(cookie.getName())) {
+                continue;
             }
+
+            try {
+                Integer userId = jwtService.extractUserIdFromToken(cookie.getValue());
+
+                Authentication authentication =
+                        new UsernamePasswordAuthenticationToken(
+                                userId,
+                                null,
+                                List.of()
+                        );
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            } catch (Exception ex) {
+                SecurityContextHolder.clearContext();
+            }
+
+            break;
         }
 
         filterChain.doFilter(request, response);
