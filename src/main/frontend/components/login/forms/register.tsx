@@ -15,10 +15,14 @@ export const RegisterForm = ({ formData, setFormData }: FormProps) => {
     setFormData(data);
 
     try {
-      const req = await fetch(`/api/auth/register`, {
-        body: JSON.stringify(data),
-        method: "POST",
-      });
+      const req = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE}/api/auth/register`,
+        {
+          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" },
+          method: "POST",
+        },
+      );
       const res = await req.json();
 
       if (res.status === 200) {

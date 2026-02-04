@@ -1,11 +1,13 @@
 "use client";
 
 import { Button, Form, Input } from "@heroui/react";
+import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 
 import { FormProps } from "@/app/login/page";
 
-export const SignInForm = ({ formData, setFormData, setStep }: FormProps) => {
+export const SignInForm = ({ formData, setFormData }: FormProps) => {
+  const router = useRouter();
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -13,14 +15,20 @@ export const SignInForm = ({ formData, setFormData, setStep }: FormProps) => {
     setFormData(data);
 
     try {
-      // const res = await fetch(`/api/auth/user/exists?email=${data.email}`);
-      // const exists = await res.json();
-      //
-      // if (exists) {
-      //   setStep(StepState.SIGN_IN);
-      // } else if (exists === false) {
-      //   setStep(StepState.REGISTER);
-      // }
+      const req = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE}/api/auth/login`,
+        {
+          body: JSON.stringify(data),
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          method: "POST",
+        },
+      );
+      const res = await req.json();
+
+      if (res.status === 200) {
+        router.back();
+      }
     } catch (e) {
       console.error(e);
     }
