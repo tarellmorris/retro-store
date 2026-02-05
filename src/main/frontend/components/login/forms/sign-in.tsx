@@ -26,7 +26,7 @@ export const SignInForm = ({ formData, setFormData }: FormProps) => {
       );
       const res = await req.json();
 
-      if (res.status === 200) {
+      if (res.ok) {
         router.back();
       }
     } catch (e) {

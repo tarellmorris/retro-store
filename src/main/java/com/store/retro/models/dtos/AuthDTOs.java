@@ -6,7 +6,4 @@ public class AuthDTOs {
 
     public record LoginRequest(String email, String password) {
     }
-
-    public record UserCheckRequest(String email) {
-    }
 }

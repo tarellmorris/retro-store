@@ -23,13 +23,16 @@ export const RegisterForm = ({ formData, setFormData }: FormProps) => {
           method: "POST",
         },
       );
-      const res = await req.json();
 
-      if (res.status === 200) {
-        router.back();
+      if (!req.ok) {
+        const errorData = await req.json().catch(() => ({}));
+        console.error("Registration failed:", errorData);
+        return;
       }
+
+      router.back();
     } catch (e) {
-      console.error(e);
+      console.error("Network or other error:", e);
     }
   };
 

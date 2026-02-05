@@ -4,6 +4,7 @@ import com.store.retro.services.JwtService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -13,7 +14,7 @@ public class JwtServiceImpl implements JwtService {
     private static final String JWT_SECRET = "jwt-secret";
     private static final long EXPIRATION_MS = 864_000_000;
 
-    public String generateToken(Integer userId) {
+    public String generateToken(Authentication userId) {
         return Jwts.builder()
                 .setSubject(userId.toString())
                 .setIssuedAt(new Date())
