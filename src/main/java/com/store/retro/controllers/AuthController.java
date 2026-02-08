@@ -4,8 +4,10 @@ import com.store.retro.models.dtos.AuthDTOs;
 import com.store.retro.models.entities.UserEntity;
 import com.store.retro.repositories.UserRepository;
 import com.store.retro.services.JwtService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -41,7 +43,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthDTOs.LoginRequest request) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody AuthDTOs.LoginRequest request, HttpServletResponse response) {
         try {
             Authentication auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.email(), request.password())
@@ -49,7 +51,15 @@ public class AuthController {
 
             String token = jwtService.generateToken(auth);
 
-            return ResponseEntity.ok(Map.of("token", token));
+            ResponseCookie cookie = ResponseCookie.from("AUTH", token)
+                    .httpOnly(true)
+                    .path("/")
+                    .sameSite("Lax") // use "None" + secure(true) if cross-site
+                    .build();
+
+            response.addHeader("Set-Cookie", cookie.toString());
+
+            return ResponseEntity.ok(Map.of("message", "Login successful"));
         } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("error", "Invalid credentials"));

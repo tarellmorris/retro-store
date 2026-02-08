@@ -39,7 +39,7 @@ export default async function Games({
   }).toString();
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE}/api/games?${query}`,
+    `${process.env.INTERNAL_API_BASE}/api/games?${query}`,
     {
       cache: "no-store",
     },
