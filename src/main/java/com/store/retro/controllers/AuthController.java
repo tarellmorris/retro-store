@@ -66,6 +66,42 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletResponse response) {
+        ResponseCookie cookie = ResponseCookie.from("AUTH", "")
+                .httpOnly(true)
+                .path("/")
+                .maxAge(0)
+                .sameSite("Lax") // use "None" + secure(true) if cross-site
+                .build();
+
+        response.addHeader("Set-Cookie", cookie.toString());
+
+        return ResponseEntity.ok(Map.of("message", "Logged out successfully"));
+    }
+
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getCurrentUser(@CookieValue(value = "AUTH", required = false) String token) {
+        if (token == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Not authenticated"));
+        }
+
+        try {
+            Integer userId = jwtService.extractUserIdFromToken(token);
+            return userRepository.findById(userId)
+                    .map(user -> ResponseEntity.ok(Map.of(
+                            "id", user.getId(),
+                            "email", user.getEmail()
+                    )))
+                    .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                            .body(Map.of("error", "User not found")));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Invalid token"));
+        }
+    }
+
     @GetMapping("/user/exists")
     public ResponseEntity<Boolean> userExists(@RequestParam String email) {
         return ResponseEntity.ok(

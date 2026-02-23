@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { UserLoginAction } from "@/components/login/user-login-action";
+
 export const NavBar = () => {
   return (
     <nav className="flex w-screen p-4 pl-8 pr-8 bg-amber-500 gap-4 items-center justify-between font-sans drop-shadow-sm">
@@ -18,18 +20,7 @@ export const NavBar = () => {
           </div>
         </Link>
       </div>
-      <div>
-        <Link className="flex gap-2 items-center" href="/login">
-          <span className="text-medium font-bold text-zinc-50">Login</span>
-          <Image
-            alt="user"
-            height={25}
-            preload={true}
-            src={"/user.svg"}
-            width={25}
-          />
-        </Link>
-      </div>
+      <UserLoginAction />
     </nav>
   );
 };
