@@ -54,7 +54,7 @@ public class AuthController {
             ResponseCookie cookie = ResponseCookie.from("AUTH", token)
                     .httpOnly(true)
                     .path("/")
-                    .sameSite("Lax") // use "None" + secure(true) if cross-site
+                    .sameSite("Lax")
                     .build();
 
             response.addHeader("Set-Cookie", cookie.toString());
@@ -72,7 +72,7 @@ public class AuthController {
                 .httpOnly(true)
                 .path("/")
                 .maxAge(0)
-                .sameSite("Lax") // use "None" + secure(true) if cross-site
+                .sameSite("Lax")
                 .build();
 
         response.addHeader("Set-Cookie", cookie.toString());

@@ -13,9 +13,7 @@ export const EmailCheckForm = ({ setFormData, setStep }: FormProps) => {
     setFormData(data);
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE}/api/auth/user/exists?email=${data.email}`,
-      );
+      const res = await fetch(`/api/auth/user/exists?email=${data.email}`);
       const exists = await res.json();
 
       if (exists) {

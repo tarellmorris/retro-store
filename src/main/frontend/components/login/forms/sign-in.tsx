@@ -15,15 +15,12 @@ export const SignInForm = ({ formData, setFormData }: FormProps) => {
     setFormData(data);
 
     try {
-      const req = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE}/api/auth/login`,
-        {
-          body: JSON.stringify(data),
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          method: "POST",
-        },
-      );
+      const req = await fetch("/api/auth/login", {
+        body: JSON.stringify(data),
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+      });
 
       if (req.ok) {
         router.back();

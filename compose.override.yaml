@@ -5,8 +5,6 @@ services:
     environment:
       NODE_ENV: development
       CHOKIDAR_USEPOLLING: true
-      NEXT_PUBLIC_API_BASE: http://localhost
-      INTERNAL_API_BASE: http://backend:8080
     develop:
       watch:
         - action: sync
@@ -20,3 +18,4 @@ services:
   backend:
     environment:
       NODE_ENV: development
+      JWT_SECRET: uSQMeSGb8NgPcLMuVqJTEm6ZnSeNq9fFtw8Y4Fi7tgU=

@@ -17,12 +17,9 @@ export const UserLoginAction = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE}/api/auth/me`,
-          {
-            credentials: "include",
-          },
-        );
+        const res = await fetch("/api/auth/me", {
+          credentials: "include",
+        });
         const data = await res.json();
 
         if (!data.error) {
@@ -43,7 +40,7 @@ export const UserLoginAction = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/api/auth/logout`, {
+      await fetch("/api/auth/logout", {
         credentials: "include",
         method: "POST",
       });
