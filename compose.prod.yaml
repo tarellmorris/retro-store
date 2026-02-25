@@ -5,6 +5,7 @@ services:
     environment:
       NODE_ENV: production
       NEXT_TELEMETRY_DISABLED: 1
+      INTERNAL_API_BASE: http://backend:8080
 
   backend:
     environment:

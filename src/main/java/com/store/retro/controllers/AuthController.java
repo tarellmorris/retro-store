@@ -53,8 +53,8 @@ public class AuthController {
 
             ResponseCookie cookie = ResponseCookie.from("AUTH", token)
                     .httpOnly(true)
-                    .path("/")
                     .sameSite("Lax")
+                    .path("/")
                     .build();
 
             response.addHeader("Set-Cookie", cookie.toString());
@@ -70,9 +70,9 @@ public class AuthController {
     public ResponseEntity<?> logout(HttpServletResponse response) {
         ResponseCookie cookie = ResponseCookie.from("AUTH", "")
                 .httpOnly(true)
-                .path("/")
-                .maxAge(0)
                 .sameSite("Lax")
+                .maxAge(0)
+                .path("/")
                 .build();
 
         response.addHeader("Set-Cookie", cookie.toString());

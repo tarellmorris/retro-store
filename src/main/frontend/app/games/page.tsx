@@ -2,6 +2,7 @@ import { Hero } from "@/components/hero";
 import { Pagination } from "@/components/pagination";
 import { StockItem } from "@/components/stock-item";
 import gameWall from "@/public/game-wall.jpg";
+import { getApiBase } from "@/utils/getApiBase";
 
 export interface Game {
   alt: string;
@@ -26,6 +27,8 @@ export default async function Games({
     sortBy: paramSortBy,
   } = await searchParams;
 
+  const apiBase = getApiBase();
+
   const page = Number(paramPage ?? 0);
   const size = Number(paramSize ?? 9);
   const sortBy = paramSortBy ?? "name";
@@ -38,12 +41,9 @@ export default async function Games({
     sortBy,
   }).toString();
 
-  const res = await fetch(
-    `${process.env.INTERNAL_API_BASE}/api/games?${query}`,
-    {
-      cache: "no-store",
-    },
-  );
+  const res = await fetch(`${apiBase}/api/games?${query}`, {
+    cache: "no-store",
+  });
 
   if (!res.ok) {
     throw new Error(`Failed to fetch games: ${res.status}`);
