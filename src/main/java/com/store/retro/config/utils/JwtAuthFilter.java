@@ -53,11 +53,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             }
 
             try {
-                String email = jwtService.extractEmailFromToken(cookie.getValue());
+                Integer userId = jwtService.extractUserIdFromToken(cookie.getValue());
 
                 Authentication authentication =
                         new UsernamePasswordAuthenticationToken(
-                                email,
+                                userId,
                                 null,
                                 List.of(() -> "ROLE_USER")
                         );

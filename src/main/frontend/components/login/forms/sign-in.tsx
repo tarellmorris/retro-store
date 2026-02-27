@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 
 import { FormProps } from "@/app/login/page";
-import { useUser } from "@/context/userContext";
+import { useUser } from "@/context/user";
 
 export const SignInForm = ({ formData, setFormData }: FormProps) => {
   const router = useRouter();

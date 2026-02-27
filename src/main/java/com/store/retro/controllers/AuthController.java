@@ -4,6 +4,7 @@ import com.store.retro.models.dtos.AuthDTOs;
 import com.store.retro.models.entities.UserEntity;
 import com.store.retro.repositories.UserRepository;
 import com.store.retro.services.JwtService;
+import com.store.retro.utils.CookieTools;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,7 @@ public class AuthController {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
+    private final CookieTools cookieTools;
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody AuthDTOs.RegisterRequest registerRequest) {
@@ -51,11 +53,7 @@ public class AuthController {
 
             String token = jwtService.generateToken(auth);
 
-            ResponseCookie cookie = ResponseCookie.from("AUTH", token)
-                    .httpOnly(true)
-                    .sameSite("Lax")
-                    .path("/")
-                    .build();
+            ResponseCookie cookie = cookieTools.createAuthCookie(token);
 
             response.addHeader("Set-Cookie", cookie.toString());
 
@@ -68,12 +66,7 @@ public class AuthController {
 
     @PostMapping("/logout")
     public ResponseEntity<Map<String, String>> logout(HttpServletResponse response) {
-        ResponseCookie cookie = ResponseCookie.from("AUTH", "")
-                .httpOnly(true)
-                .sameSite("Lax")
-                .maxAge(0)
-                .path("/")
-                .build();
+        ResponseCookie cookie = cookieTools.deleteAuthCookie();
 
         response.addHeader("Set-Cookie", cookie.toString());
 
@@ -88,9 +81,10 @@ public class AuthController {
         }
 
         try {
-            String email = jwtService.extractEmailFromToken(token);
-            return userRepository.findByEmail(email)
+            Integer userId = jwtService.extractUserIdFromToken(token);
+            return userRepository.findById(userId)
                     .map(user -> ResponseEntity.ok(Map.of(
+                            "id", userId.toString(),
                             "email", user.getEmail()
                     )))
                     .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED)

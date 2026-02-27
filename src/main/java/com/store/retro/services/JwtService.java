@@ -6,5 +6,5 @@ import org.springframework.security.core.Authentication;
 public interface JwtService {
     String generateToken(Authentication userId);
 
-    String extractEmailFromToken(String token);
+    Integer extractUserIdFromToken(String token);
 }

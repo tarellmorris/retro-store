@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-import { useUser } from "@/context/userContext";
+import { useUser } from "@/context/user";
 
 export const UserLoginAction = () => {
   const { loading, setUser, user } = useUser();
@@ -29,7 +29,11 @@ export const UserLoginAction = () => {
 
   if (user) {
     return (
-      <Button className="flex gap-2 items-center" onPress={handleLogout}>
+      <Button
+        className="flex gap-2 items-center"
+        onPress={handleLogout}
+        variant="light"
+      >
         <span className="text-medium font-bold text-zinc-50">Logout</span>
         <Image
           alt="user"
@@ -43,7 +47,12 @@ export const UserLoginAction = () => {
   }
 
   return (
-    <Button as={Link} className="flex gap-2 items-center" href="/login">
+    <Button
+      as={Link}
+      className="flex gap-2 items-center"
+      href="/login"
+      variant="light"
+    >
       <span className="text-medium font-bold text-zinc-50">Login</span>
       <Image
         alt="user"
