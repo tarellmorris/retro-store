@@ -6,7 +6,7 @@ interface CardsBlockProps {
 
 export const CardsBlock = ({ cards }: CardsBlockProps) => {
   return (
-    <div className="flex flex-wrap items-stretch flex-1 w-full p-16 gap-16 justify-center">
+    <div className="flex flex-wrap p-16 gap-16 justify-center">
       {cards.map((card) => (
         <Card key={`${card.headerText}-${card.alt}`} {...card} />
       ))}
