@@ -3,40 +3,12 @@
 import { Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-interface User {
-  email: string;
-  id: number;
-}
+import { useUser } from "@/context/userContext";
 
 export const UserLoginAction = () => {
-  const [user, setUser] = useState<null | User>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const res = await fetch("/api/auth/me", {
-          credentials: "include",
-        });
-        const data = await res.json();
-
-        if (!data.error) {
-          setUser(data);
-        } else {
-          setUser(null);
-        }
-      } catch (err) {
-        console.error("Failed to fetch user:", err);
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    void fetchUser();
-  }, []);
+  const { loading, setUser, user } = useUser();
 
   const handleLogout = async () => {
     try {

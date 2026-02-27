@@ -5,9 +5,12 @@ import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 
 import { FormProps } from "@/app/login/page";
+import { useUser } from "@/context/userContext";
 
 export const SignInForm = ({ formData, setFormData }: FormProps) => {
   const router = useRouter();
+  const { setUser } = useUser();
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -23,6 +26,13 @@ export const SignInForm = ({ formData, setFormData }: FormProps) => {
       });
 
       if (req.ok) {
+        const res = await fetch("/api/auth/me", { credentials: "include" });
+        const data = await res.json();
+
+        if (!data.error) {
+          setUser(data);
+        }
+
         router.back();
       }
     } catch (e) {
