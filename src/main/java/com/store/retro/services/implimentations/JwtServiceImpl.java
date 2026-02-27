@@ -33,14 +33,12 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public Integer extractUserIdFromToken(String token) {
-        return Integer.valueOf(
-                Jwts.parser()
-                        .verifyWith(key)
-                        .build()
-                        .parseSignedClaims(token)
-                        .getPayload()
-                        .getSubject()
-        );
+    public String extractUserIdFromToken(String token) {
+        return Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getSubject();
     }
 }

@@ -53,7 +53,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             }
 
             try {
-                Integer userId = jwtService.extractUserIdFromToken(cookie.getValue());
+                String userId = jwtService.extractUserIdFromToken(cookie.getValue());
 
                 Authentication authentication =
                         new UsernamePasswordAuthenticationToken(

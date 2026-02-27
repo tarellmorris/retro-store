@@ -88,10 +88,9 @@ public class AuthController {
         }
 
         try {
-            Integer userId = jwtService.extractUserIdFromToken(token);
-            return userRepository.findById(userId)
+            String userId = jwtService.extractUserIdFromToken(token);
+            return userRepository.findByEmail(userId)
                     .map(user -> ResponseEntity.ok(Map.of(
-                            "id", user.getId(),
                             "email", user.getEmail()
                     )))
                     .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED)
