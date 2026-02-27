@@ -67,7 +67,7 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletResponse response) {
+    public ResponseEntity<Map<String, String>> logout(HttpServletResponse response) {
         ResponseCookie cookie = ResponseCookie.from("AUTH", "")
                 .httpOnly(true)
                 .sameSite("Lax")
@@ -82,14 +82,14 @@ public class AuthController {
 
 
     @GetMapping("/me")
-    public ResponseEntity<?> getCurrentUser(@CookieValue(value = "AUTH", required = false) String token) {
+    public ResponseEntity<Map<String, String>> getCurrentUser(@CookieValue(value = "AUTH", required = false) String token) {
         if (token == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Not authenticated"));
         }
 
         try {
-            String userId = jwtService.extractUserIdFromToken(token);
-            return userRepository.findByEmail(userId)
+            String email = jwtService.extractEmailFromToken(token);
+            return userRepository.findByEmail(email)
                     .map(user -> ResponseEntity.ok(Map.of(
                             "email", user.getEmail()
                     )))

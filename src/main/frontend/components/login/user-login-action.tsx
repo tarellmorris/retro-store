@@ -45,6 +45,7 @@ export const UserLoginAction = () => {
         method: "POST",
       });
       setUser(null);
+      location.reload();
     } catch (err) {
       console.error("Logout failed:", err);
     }

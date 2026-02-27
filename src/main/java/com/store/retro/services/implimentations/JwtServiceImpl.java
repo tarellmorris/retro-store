@@ -32,8 +32,7 @@ public class JwtServiceImpl implements JwtService {
                 .compact();
     }
 
-    @Override
-    public String extractUserIdFromToken(String token) {
+    public String extractEmailFromToken(String token) {
         return Jwts.parser()
                 .verifyWith(key)
                 .build()
