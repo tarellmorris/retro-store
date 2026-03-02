@@ -39,16 +39,17 @@ export const StockItem = ({
   };
   return (
     <Card
-      className="flex justify-start flex-col w-150 lg:w-100 bg-zinc-50 p-4 rounded-2xl"
+      className="flex justify-start flex-col w-100 lg:w-75 bg-zinc-50 p-4 rounded-2xl"
       shadow="sm"
     >
       <CardBody className="overflow-visible p-0">
-        <div className="flex w-full bg-linear-65 from-cyan-700/50 to-pink-600/50 rounded-2xl relative h-80 overflow-hidden">
+        <div className="flex w-full bg-linear-65 from-cyan-700/50 to-pink-600/50 rounded-2xl relative h-50 overflow-hidden">
           <Image
             alt={alt}
             className="p-4 drop-shadow-sm"
-            fill={true}
+            fill
             loading="lazy"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             src={`/stock/games/${url}`}
             style={{ objectFit: "contain" }}
           />
