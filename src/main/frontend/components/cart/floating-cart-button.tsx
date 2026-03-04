@@ -7,14 +7,15 @@ import Image from "next/image";
 import { useCart } from "@/context/cart";
 
 export const FloatingCartButton = () => {
-  const { cart } = useCart();
+  const { cart, drawerDisclosure } = useCart();
+  const { onOpen } = drawerDisclosure;
 
   if (!cart) return null;
 
   return (
     <div className="fixed bottom-6 right-6 drop-shadow-2xl">
       <Badge color="warning" content={cart.totalItems}>
-        <Button color="primary" isIconOnly size="lg">
+        <Button color="primary" isIconOnly onPress={onOpen} size="lg">
           <Image
             alt="logo"
             height={40}

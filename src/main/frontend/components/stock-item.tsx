@@ -3,16 +3,8 @@
 import { Button, Card, CardBody, CardFooter } from "@heroui/react";
 import Image from "next/image";
 
-export interface StockItemProps {
-  alt: string;
-  description: string;
-  id: number;
-  name: string;
-  platform: string;
-  price: number;
-  quantity: number;
-  url: string;
-}
+import { StockItemProps } from "@/@types/stock";
+import { useCart } from "@/context/cart";
 
 export const StockItem = ({
   alt,
@@ -24,18 +16,25 @@ export const StockItem = ({
   quantity,
   url,
 }: StockItemProps) => {
+  const { fetchCart } = useCart();
   const formatter = new Intl.NumberFormat("en-US", {
     currency: "USD",
     style: "currency",
   });
   const addToCart = async (data: { gameId: number; quantity: number }) => {
-    await fetch("/api/cart/items", {
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    });
+    try {
+      await fetch("/api/cart/items", {
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      fetchCart();
+    }
   };
   return (
     <Card

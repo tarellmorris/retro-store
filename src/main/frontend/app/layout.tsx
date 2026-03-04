@@ -4,7 +4,7 @@ import "./globals.css";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { Providers } from "@/app/providers";
-import { FloatingCartButton } from "@/components/cart/floating-cart-button";
+import { CartDrawer } from "@/components/cart/cart-drawer";
 import { NavBar } from "@/components/navbar";
 
 const geistSans = Geist({
@@ -41,7 +41,7 @@ export default function RootLayout({
           <main className="flex justify-center min-h-screen min-w-full bg-amber-500 font-sans">
             {children}
           </main>
-          <FloatingCartButton />
+          <CartDrawer />
         </Providers>
       </body>
     </html>
