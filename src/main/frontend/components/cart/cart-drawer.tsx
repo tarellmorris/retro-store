@@ -8,20 +8,14 @@ import {
   DrawerFooter,
   DrawerHeader,
 } from "@heroui/react";
-import { useEffect } from "react";
 
 import { FloatingCartButton } from "@/components/cart/floating-cart-button";
 import { ItemCard } from "@/components/cart/item-card";
 import { useCart } from "@/context/cart";
 
 export const CartDrawer = () => {
-  const { cartItems, drawerDisclosure, fetchCartItemDetails } = useCart();
+  const { cart, drawerDisclosure } = useCart();
   const { isOpen, onClose } = drawerDisclosure;
-
-  useEffect(() => {
-    if (!isOpen) return;
-    fetchCartItemDetails();
-  }, [fetchCartItemDetails, isOpen]);
 
   if (!isOpen) {
     return <FloatingCartButton />;
@@ -36,9 +30,11 @@ export const CartDrawer = () => {
               Your cart
             </DrawerHeader>
             <DrawerBody>
-              {cartItems?.map((item, index) => (
-                <ItemCard {...item} key={index} />
-              ))}
+              <div className="flex flex-col scroll-auto gap-2">
+                {cart?.items?.map((item, index) => (
+                  <ItemCard {...item.gameDetails} key={index} />
+                ))}
+              </div>
             </DrawerBody>
             <DrawerFooter>
               <Button color="danger" onPress={onClose} variant="light">

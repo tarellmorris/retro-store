@@ -10,8 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class GamesStockServiceImpl implements GamesStockService {
@@ -33,11 +31,5 @@ public class GamesStockServiceImpl implements GamesStockService {
         );
 
         return repository.findAll(pageable);
-    }
-
-    public List<GamesStockEntity> getGamesById(
-            List<Integer> ids
-    ) {
-        return repository.findAllById(ids);
     }
 }

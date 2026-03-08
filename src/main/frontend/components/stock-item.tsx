@@ -3,8 +3,18 @@
 import { Button, Card, CardBody, CardFooter } from "@heroui/react";
 import Image from "next/image";
 
-import { StockItemProps } from "@/@types/stock";
 import { useCart } from "@/context/cart";
+
+type StockItemProps = {
+  alt: string;
+  description: string;
+  id: number;
+  name: string;
+  platform: string;
+  price: number;
+  quantity: number;
+  url: string;
+};
 
 export const StockItem = ({
   alt,
@@ -21,6 +31,7 @@ export const StockItem = ({
     currency: "USD",
     style: "currency",
   });
+
   const addToCart = async (data: { gameId: number; quantity: number }) => {
     try {
       await fetch("/api/cart/items", {
@@ -36,6 +47,7 @@ export const StockItem = ({
       fetchCart();
     }
   };
+
   return (
     <Card
       className="flex justify-start flex-col w-100 lg:w-75 bg-zinc-50 p-4 rounded-2xl"

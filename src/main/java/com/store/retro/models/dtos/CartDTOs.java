@@ -1,5 +1,6 @@
 package com.store.retro.models.dtos;
 
+import com.store.retro.models.dtos.GameStockDTOs.GameStockResponse;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
@@ -29,10 +30,10 @@ public class CartDTOs {
 
     public record CartItemResponse(
             Integer gameId,
-            String gameName,
             Integer quantity,
             BigDecimal priceAtAdd,
-            BigDecimal lineTotal
+            BigDecimal lineTotal,
+            GameStockResponse gameDetails
     ) {
     }
 }

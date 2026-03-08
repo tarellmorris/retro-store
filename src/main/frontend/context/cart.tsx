@@ -2,14 +2,11 @@ import { useDisclosure } from "@heroui/react";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 import { Cart } from "@/@types/cart";
-import { StockItemProps } from "@/@types/stock";
 
 interface CartContextValue {
   cart: Cart | null;
-  cartItems: null | StockItemProps[];
   drawerDisclosure: ReturnType<typeof useDisclosure>;
   fetchCart: () => void;
-  fetchCartItemDetails: () => void;
   loading: boolean;
 }
 
@@ -21,10 +18,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   const drawerDisclosure = useDisclosure();
 
   const [cart, setCart] = useState<Cart | null>(null);
-  const [cartItems, setCartItems] = useState<null | StockItemProps[]>(null);
   const [loading, setLoading] = useState<boolean>(true);
-
-  const gameIds = cart?.items.map(({ gameId }) => gameId) ?? [];
 
   const fetchCart = async () => {
     try {
@@ -42,25 +36,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const fetchCartItemDetails = async () => {
-    if (!gameIds.length) return;
-
-    try {
-      setLoading(true);
-      const res = await fetch("api/games/byId", {
-        body: JSON.stringify(gameIds),
-        credentials: "include",
-      });
-      const data = await res.json();
-      setCartItems(data);
-    } catch (error) {
-      console.log(error);
-      setCart(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
     void fetchCart();
   }, []);
@@ -69,10 +44,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     <CartContext.Provider
       value={{
         cart,
-        cartItems,
         drawerDisclosure,
         fetchCart,
-        fetchCartItemDetails,
         loading,
       }}
     >

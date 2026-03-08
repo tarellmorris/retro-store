@@ -1,10 +1,12 @@
-export interface StockItemProps {
-  alt: string;
+export interface StockItemGame {
+  createdAt: number;
   description: string;
   id: number;
+  image: string;
+  longDescription: string;
   name: string;
   platform: string;
   price: number;
   quantity: number;
-  url: string;
+  updatedAt: number;
 }

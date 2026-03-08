@@ -1,3 +1,5 @@
+import { StockItemGame } from "@/@types/stock";
+
 export interface Cart {
   cartId: number;
   items: Item[];
@@ -7,8 +9,8 @@ export interface Cart {
 }
 
 export interface Item {
+  gameDetails: StockItemGame;
   gameId: number;
-  gameName: string;
   lineTotal: number;
   priceAtAdd: number;
   quantity: number;

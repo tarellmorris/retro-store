@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import { Geist, Geist_Mono } from "next/font/google";
+import React from "react";
 
 import { Providers } from "@/app/providers";
 import { CartDrawer } from "@/components/cart/cart-drawer";
