@@ -19,7 +19,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const [cart, setCart] = useState<Cart | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-
+  console.log(cart);
   const fetchCart = async () => {
     try {
       setLoading(true);

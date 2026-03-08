@@ -32,7 +32,12 @@ export const CartDrawer = () => {
             <DrawerBody>
               <div className="flex flex-col scroll-auto gap-2">
                 {cart?.items?.map((item, index) => (
-                  <ItemCard {...item.gameDetails} key={index} />
+                  <ItemCard
+                    {...item.gameDetails}
+                    key={index}
+                    price={item.priceAtAdd}
+                    quantity={item.quantity}
+                  />
                 ))}
               </div>
             </DrawerBody>
