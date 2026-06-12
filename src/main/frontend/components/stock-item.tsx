@@ -2,6 +2,7 @@
 
 import { Button, Card, CardBody, CardFooter } from "@heroui/react";
 import Image from "next/image";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { useCart } from "@/context/cart";
 
@@ -27,24 +28,39 @@ export const StockItem = ({
   url,
 }: StockItemProps) => {
   const { fetchCart } = useCart();
+  const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const formatter = new Intl.NumberFormat("en-US", {
     currency: "USD",
     style: "currency",
   });
 
+  const currentPath = `${pathname}${searchParams.size ? `?${searchParams.toString()}` : ""}`;
+
   const addToCart = async (data: { gameId: number; quantity: number }) => {
     try {
-      await fetch("/api/cart/items", {
+      const res = await fetch("/api/cart/items", {
         body: JSON.stringify(data),
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
         method: "POST",
       });
+
+      if (res.status === 401) {
+        router.push(`/login?next=${encodeURIComponent(currentPath)}`);
+        return;
+      }
+
+      if (!res.ok) {
+        throw new Error(`Failed to add item to cart: ${res.status}`);
+      }
+
+      await fetchCart();
     } catch (error) {
       console.error(error);
-    } finally {
-      fetchCart();
     }
   };
 

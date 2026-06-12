@@ -13,7 +13,14 @@ export const EmailCheckForm = ({ setFormData, setStep }: FormProps) => {
     setFormData(data);
 
     try {
-      const res = await fetch(`/api/auth/user/exists?email=${data.email}`);
+      const res = await fetch(
+        `/api/auth/user/exists?email=${encodeURIComponent(String(data.email))}`,
+      );
+
+      if (!res.ok) {
+        throw new Error(`Failed to check email: ${res.status}`);
+      }
+
       const exists = await res.json();
 
       if (exists) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Form, Input } from "@heroui/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent } from "react";
 
 import { FormProps } from "@/app/login/page";
@@ -9,7 +9,13 @@ import { useUser } from "@/context/user";
 
 export const SignInForm = ({ formData, setFormData }: FormProps) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { setUser } = useUser();
+  const rawNextPath = searchParams.get("next") ?? "/";
+  const nextPath =
+    rawNextPath.startsWith("/") && !rawNextPath.startsWith("//")
+      ? rawNextPath
+      : "/";
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,7 +39,7 @@ export const SignInForm = ({ formData, setFormData }: FormProps) => {
           setUser(data);
         }
 
-        router.back();
+        router.push(nextPath);
       }
     } catch (e) {
       console.error(e);

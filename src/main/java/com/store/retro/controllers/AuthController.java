@@ -14,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -75,24 +76,18 @@ public class AuthController {
 
 
     @GetMapping("/me")
-    public ResponseEntity<Map<String, String>> getCurrentUser(@CookieValue(value = "AUTH", required = false) String token) {
-        if (token == null) {
+    public ResponseEntity<Map<String, String>> getCurrentUser(@AuthenticationPrincipal Integer userId) {
+        if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Not authenticated"));
         }
 
-        try {
-            Integer userId = jwtService.extractUserIdFromToken(token);
-            return userRepository.findById(userId)
-                    .map(user -> ResponseEntity.ok(Map.of(
-                            "id", userId.toString(),
-                            "email", user.getEmail()
-                    )))
-                    .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                            .body(Map.of("error", "User not found")));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("error", "Invalid token"));
-        }
+        return userRepository.findById(userId)
+                .map(user -> ResponseEntity.ok(Map.of(
+                        "id", userId.toString(),
+                        "email", user.getEmail()
+                )))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(Map.of("error", "User not found")));
     }
 
     @GetMapping("/user/exists")
@@ -102,4 +97,3 @@ public class AuthController {
         );
     }
 }
-

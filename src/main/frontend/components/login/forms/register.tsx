@@ -1,13 +1,22 @@
 "use client";
 
 import { Button, Form, Input } from "@heroui/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent } from "react";
 
 import { FormProps } from "@/app/login/page";
+import { useUser } from "@/context/user";
 
 export const RegisterForm = ({ formData, setFormData }: FormProps) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const { setUser } = useUser();
+  const rawNextPath = searchParams.get("next") ?? "/";
+  const nextPath =
+    rawNextPath.startsWith("/") && !rawNextPath.startsWith("//")
+      ? rawNextPath
+      : "/";
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -27,7 +36,26 @@ export const RegisterForm = ({ formData, setFormData }: FormProps) => {
         return;
       }
 
-      router.back();
+      const loginReq = await fetch("/api/auth/login", {
+        body: JSON.stringify(data),
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+      });
+
+      if (!loginReq.ok) {
+        console.error("Login after registration failed");
+        return;
+      }
+
+      const userReq = await fetch("/api/auth/me", { credentials: "include" });
+      const user = await userReq.json();
+
+      if (!user.error) {
+        setUser(user);
+      }
+
+      router.push(nextPath);
     } catch (e) {
       console.error("Network or other error:", e);
     }

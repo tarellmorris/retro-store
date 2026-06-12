@@ -4,6 +4,7 @@ import com.store.retro.config.utils.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -38,8 +39,16 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
+                .exceptionHandling(exceptions -> exceptions
+                        .authenticationEntryPoint((request, response, authException) ->
+                                response.sendError(HttpStatus.UNAUTHORIZED.value())
+                        )
+                )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers("/api/auth/logout").permitAll()
+                        .requestMatchers("/api/auth/register").permitAll()
+                        .requestMatchers("/api/auth/user/exists").permitAll()
                         .requestMatchers("/api/games/**").permitAll()
                         .anyRequest().authenticated()
                 )
