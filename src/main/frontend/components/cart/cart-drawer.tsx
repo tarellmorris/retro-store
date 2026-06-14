@@ -1,13 +1,7 @@
 "use client";
 
-import {
-  Button,
-  Drawer,
-  DrawerBody,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-} from "@heroui/react";
+import { Button, Drawer, DrawerBody, DrawerContent, DrawerFooter, DrawerHeader } from "@heroui/react";
+import Image from "next/image";
 
 import { FloatingCartButton } from "@/components/cart/floating-cart-button";
 import { ItemCard } from "@/components/cart/item-card";
@@ -17,9 +11,42 @@ export const CartDrawer = () => {
   const { cart, drawerDisclosure } = useCart();
   const { isOpen, onClose } = drawerDisclosure;
 
+  const isEmpty = !cart?.items?.length;
+
   if (!isOpen) {
     return <FloatingCartButton />;
   }
+
+  const renderEmptyCartMessage = () => {
+    return (
+      <div className="flex flex-col scroll-auto gap-2 justify-center align-center h-full w-full">
+        <h2 className="text-center text-2xl font-bold">Your cart is empty</h2>
+        <Image
+          alt="logo"
+          className="w-1/2 mx-auto"
+          height={40}
+          preload={true}
+          src={"/tv-black.svg"}
+          width={40}
+        />
+      </div>
+    );
+  };
+
+  const renderCartContent = () => {
+    return (
+      <div className="flex flex-col scroll-auto gap-2">
+        {cart?.items?.map((item, index) => (
+          <ItemCard
+            {...item.gameDetails}
+            key={index}
+            price={item.priceAtAdd}
+            quantity={item.quantity}
+          />
+        ))}
+      </div>
+    );
+  };
 
   return (
     <Drawer isOpen={isOpen} onClose={onClose}>
@@ -30,16 +57,7 @@ export const CartDrawer = () => {
               Your cart
             </DrawerHeader>
             <DrawerBody>
-              <div className="flex flex-col scroll-auto gap-2">
-                {cart?.items?.map((item, index) => (
-                  <ItemCard
-                    {...item.gameDetails}
-                    key={index}
-                    price={item.priceAtAdd}
-                    quantity={item.quantity}
-                  />
-                ))}
-              </div>
+              {isEmpty ? renderEmptyCartMessage() : renderCartContent()}
             </DrawerBody>
             <DrawerFooter>
               <Button color="danger" onPress={onClose} variant="light">
