@@ -85,7 +85,9 @@ public class CartServiceImpl implements CartService {
     @Override
     public void removeItem(Integer userId, Integer gameId) {
         CartEntity cart = cartServiceHelpers.getActiveCart(userId);
-        cartItemRepository.deleteByCartIdAndGameId(cart.getId(), gameId);
+        CartItemEntity item = cartServiceHelpers.getCartItem(cart, gameId);
+        cart.getItems().remove(item);
+        cartItemRepository.delete(item);
     }
 
     @Override
