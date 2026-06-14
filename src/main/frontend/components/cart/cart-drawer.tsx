@@ -1,6 +1,13 @@
 "use client";
 
-import { Button, Drawer, DrawerBody, DrawerContent, DrawerFooter, DrawerHeader } from "@heroui/react";
+import {
+  Button,
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+} from "@heroui/react";
 import Image from "next/image";
 
 import { FloatingCartButton } from "@/components/cart/floating-cart-button";
@@ -10,6 +17,11 @@ import { useCart } from "@/context/cart";
 export const CartDrawer = () => {
   const { cart, drawerDisclosure } = useCart();
   const { isOpen, onClose } = drawerDisclosure;
+
+  const formatter = new Intl.NumberFormat("en-US", {
+    currency: "USD",
+    style: "currency",
+  });
 
   const isEmpty = !cart?.items?.length;
 
@@ -48,6 +60,17 @@ export const CartDrawer = () => {
     );
   };
 
+  const renderSubtotal = () => {
+    if (isEmpty || !cart?.subtotal) return "";
+
+    return (
+      <div>
+        <p className="font-bold">Subtotal:</p>
+        {formatter.format(cart.subtotal)}
+      </div>
+    );
+  };
+
   return (
     <Drawer isOpen={isOpen} onClose={onClose}>
       <DrawerContent>
@@ -59,13 +82,16 @@ export const CartDrawer = () => {
             <DrawerBody>
               {isEmpty ? renderEmptyCartMessage() : renderCartContent()}
             </DrawerBody>
-            <DrawerFooter>
-              <Button color="danger" onPress={onClose} variant="light">
-                Close
-              </Button>
-              <Button color="primary" onPress={onClose}>
-                Checkout
-              </Button>
+            <DrawerFooter className="flex flex-col gap-2">
+              {renderSubtotal()}
+              <div className="flex gap-2 justify-end">
+                <Button color="danger" onPress={onClose} variant="light">
+                  Close
+                </Button>
+                <Button color="primary" onPress={onClose}>
+                  Checkout
+                </Button>
+              </div>
             </DrawerFooter>
           </>
         )}
