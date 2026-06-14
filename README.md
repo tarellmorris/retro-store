@@ -38,14 +38,16 @@ management including pagination, and cart management.
 
 ### What happens in the database?
 
-The database is a MariaDB database that stores user, cart, and game information.
+The database is a MariaDB database that stores user, cart, and game information. A script is run to initialize the
+database to a clean state for demo purposes.
 
 ### What happens in the proxy?
 
-The proxy is a Nginx server that provides a reverse proxy for the frontend and backend. It forwards requests from a
+The proxy is a Nginx server that provides reverse proxy functionality for the frontend and backend. It forwards requests
+from a
 centralized location so network calls function locally and in production seamlessly.
 
 ## How to run
 
-Clone the repo. Retro Store uses a singular Makefile for building and running the application.
-Simply run the `make` command to do a clean and complete build, then open `localhost:3000` in your browser.
+Retro Store uses a singular Makefile for building and running the application.
+Simply run the `make` command from root to do a clean and complete build, then open `localhost:3000` in your browser.
