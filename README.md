@@ -18,11 +18,14 @@ the active cart.
 - Responsive landing page and retro-inspired storefront
 - Seeded catalog of 24 games across five classic platforms
 - Server-rendered, paginated game inventory
+- Server-rendered game details pages at `/details/{id}`
 - Configurable catalog page size, sorting field, and sort direction
 - Email registration and sign-in flow
 - Stateless Spring Security authentication using a JWT in an HTTP-only cookie
 - Persistent, user-specific shopping carts
-- Cart quantity updates, item removal, and subtotal calculation
+- Shared add-to-cart behavior from catalog cards and detail pages
+- Cart quantity updates, item removal, subtotal calculation, and auth-aware
+  cart refresh after login
 - Checkout API with final stock validation and inventory reduction
 - Nginx reverse proxy providing one origin for the frontend and API
 - Docker Compose development and production configurations
@@ -31,7 +34,9 @@ the active cart.
 
 The `/games` route fetches inventory from the Spring Boot API and displays the
 current price and available quantity for every title. Results default to nine
-games per page and are sorted by name.
+games per page and are sorted by name. Clicking a game's artwork navigates to
+`/details/{id}`, which fetches one game by ID and renders a larger product view
+with the long description, image, price, stock count, and an Add to cart button.
 
 ![Paginated game catalog](screenshots/Screenshot%202026-06-14%20at%2011.36.09%E2%80%AFAM.png)
 
@@ -54,6 +59,13 @@ Each user has one active cart. Adding the same title again increases its
 quantity, while the cart drawer can update a quantity or remove an item by
 setting its quantity to zero. The API stores the price captured when the item
 was added and uses it to calculate line totals and the cart subtotal.
+
+Cart state is managed by the frontend cart context. The shared Add to cart
+button calls the same `addToCart` action from both catalog cards and detail
+pages, then refreshes the active cart. The cart provider also watches the
+authenticated user state: after a first login or registration it re-fetches the
+cart immediately, so the floating cart button can appear without requiring a
+manual refresh or a second cart action.
 
 ![Shopping cart drawer](screenshots/Screenshot%202026-06-14%20at%2011.36.30%E2%80%AFAM.png)
 
@@ -145,6 +157,7 @@ The Compose stack contains four services:
 ├── src/main/frontend/
 │   ├── app/                     # App Router pages and global layout
 │   ├── components/              # Storefront, login, and cart UI
+│   │   └── add-to-cart-button.tsx
 │   ├── context/                 # User and cart providers
 │   ├── public/                  # Store imagery and game artwork
 │   └── Dockerfile
@@ -158,6 +171,7 @@ Public endpoints:
 | Method | Endpoint | Description |
 | --- | --- | --- |
 | `GET` | `/api/games` | Return a paginated and sorted game catalog |
+| `GET` | `/api/games/{id}` | Return one game for the details page |
 | `GET` | `/api/auth/user/exists?email=...` | Check whether an email is registered |
 | `POST` | `/api/auth/register` | Create a user |
 | `POST` | `/api/auth/login` | Authenticate and set the `AUTH` cookie |
@@ -178,6 +192,12 @@ Example catalog request:
 
 ```http
 GET /api/games?page=0&size=9&sortBy=name&direction=ASC
+```
+
+Example details request:
+
+```http
+GET /api/games/1
 ```
 
 Example add-to-cart body:
@@ -292,6 +312,7 @@ npm run lint
 ## Current scope
 
 Retro Store is an educational demo rather than a production commerce system.
-The Music and Electronics categories are placeholders. The checkout endpoint
-updates local inventory, but the UI action is not wired yet and there is no
-payment processing, shipping, order history, or administration interface.
+The Music and Electronics categories are placeholders. Game detail pages and
+shared Add to cart actions are wired, but the checkout UI action is not yet
+connected to the checkout endpoint. There is no payment processing, shipping,
+order history, or administration interface.

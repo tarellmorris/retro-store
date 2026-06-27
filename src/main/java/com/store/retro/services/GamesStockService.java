@@ -12,4 +12,6 @@ public interface GamesStockService {
             String sortBy,
             Sort.Direction direction
     );
+
+    GamesStockEntity getGameDetails(Integer id);
 }

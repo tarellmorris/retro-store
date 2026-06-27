@@ -1,10 +1,10 @@
 "use client";
 
-import { Button, Card, CardBody, CardFooter } from "@heroui/react";
+import { Card, CardBody, CardFooter } from "@heroui/react";
 import Image from "next/image";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-import { useCart } from "@/context/cart";
+import { AddToCartButton } from "@/components/add-to-cart-button";
 
 type StockItemProps = {
   alt: string;
@@ -27,42 +27,13 @@ export const StockItem = ({
   quantity,
   url,
 }: StockItemProps) => {
-  const { fetchCart } = useCart();
-  const pathname = usePathname();
   const router = useRouter();
-  const searchParams = useSearchParams();
   const formatter = new Intl.NumberFormat("en-US", {
     currency: "USD",
     style: "currency",
   });
 
-  const currentPath = `${pathname}${searchParams.size ? `?${searchParams.toString()}` : ""}`;
-
-  const addToCart = async (data: { gameId: number; quantity: number }) => {
-    try {
-      const res = await fetch("/api/cart/items", {
-        body: JSON.stringify(data),
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-      });
-
-      if (res.status === 401) {
-        router.push(`/login?next=${encodeURIComponent(currentPath)}`);
-        return;
-      }
-
-      if (!res.ok) {
-        throw new Error(`Failed to add item to cart: ${res.status}`);
-      }
-
-      await fetchCart();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const routeToDetails = () => router.push(`/details/${id}`);
 
   return (
     <Card
@@ -70,7 +41,10 @@ export const StockItem = ({
       shadow="sm"
     >
       <CardBody className="overflow-visible p-0">
-        <div className="flex w-full bg-linear-65 from-cyan-700/50 to-pink-600/50 rounded-2xl relative h-50 overflow-hidden">
+        <div
+          className="flex w-full bg-linear-65 from-cyan-700/50 to-pink-600/50 rounded-2xl relative h-50 overflow-hidden cursor-pointer hover:shadow-md"
+          onClick={routeToDetails}
+        >
           <Image
             alt={alt}
             className="p-4 drop-shadow-sm"
@@ -91,13 +65,11 @@ export const StockItem = ({
           <p className="font-normal text-md text-red-500 mt-2">{`In stock`}</p>
           <p className="font-semibold text-md">{`Quantity: ${quantity}`}</p>
         </div>
-        <Button
+        <AddToCartButton
           className="mt-3"
-          color="primary"
-          onPress={() => addToCart({ gameId: id, quantity: 1 })}
-        >
-          Add to cart
-        </Button>
+          gameId={id}
+          quantity={quantity}
+        />
       </CardFooter>
     </Card>
   );

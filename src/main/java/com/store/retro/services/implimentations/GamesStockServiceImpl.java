@@ -8,7 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -31,5 +33,11 @@ public class GamesStockServiceImpl implements GamesStockService {
         );
 
         return repository.findAll(pageable);
+    }
+
+    @Override
+    public GamesStockEntity getGameDetails(Integer id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Game not found"));
     }
 }
